@@ -1,0 +1,6 @@
+org\product\warranty\pro\services\user\security\UserDetailsImpl.class
+org\product\warranty\pro\services\handlers\WPServiceException.class
+org\product\warranty\pro\services\handlers\MySavedRequestAwareAuthenticationSuccessHandler.class
+org\product\warranty\pro\services\handlers\RestAuthenticationEntryPoint.class
+org\product\warranty\pro\services\user\security\UserAuthServiceImpl.class
+org\product\warranty\pro\services\user\security\GrantedAuthorityImpl.class

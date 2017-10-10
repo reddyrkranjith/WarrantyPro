@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="WP-Web">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="WP-Entities-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/WP-Entities/WP-Entities">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="WP-Dataaccess-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/WP-Dataaccess/WP-Dataaccess">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="WP-Services-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/WP-Services/WP-Services">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="WP-Rest-Beans-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/WP-Rest-Beans/WP-Rest-Beans">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="wp"/>
+        <property name="java-output-path" value="/WP-Web/target/classes"/>
+    </wb-module>
+</project-modules>

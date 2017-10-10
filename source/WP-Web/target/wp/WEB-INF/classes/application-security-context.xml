@@ -7,11 +7,10 @@
 	http://www.springframework.org/schema/security/spring-security.xsd">
 	
 	<http entry-point-ref="restAuthenticationEntryPoint">
-		<intercept-url pattern="/api/admin/**" access="ROLE_ADMIN" />
+		<intercept-url pattern="/warranty/api/**" access="ROLE_USER" />
 	
 		<form-login authentication-success-handler-ref="mySuccessHandler"
 			authentication-failure-handler-ref="myFailureHandler" />
-	
 		<logout />
 	</http>
 	

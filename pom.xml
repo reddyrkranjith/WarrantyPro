@@ -16,7 +16,7 @@
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 		<jstl.version>1.2</jstl.version>
 		<spring.version>3.2.0.RELEASE</spring.version>
-		<spring.security.version>3.2.0.RELEASE</spring.security.version>
+		<spring.security.version>3.2.5.RELEASE</spring.security.version>
 		<!-- Spring security social login -->
 		<spring.social.version>1.1.0.RELEASE</spring.social.version>
 		<spring.social.facebook.version>1.1.0.RELEASE</spring.social.facebook.version>
@@ -25,7 +25,7 @@
 		<version.compiler.plugin>3.0</version.compiler.plugin>
 		<version.exec.plugin>1.2.1</version.exec.plugin>
 		<version.war.plugin>2.1.1</version.war.plugin>
-
+		<jjwt.version>0.7.0</jjwt.version>
 		<!-- other plugin versions -->
 		<version.compiler.plugin>3.0</version.compiler.plugin>
 		<version.exec.plugin>1.2.1</version.exec.plugin>
@@ -387,6 +387,12 @@
 				<artifactId>jbossws-native-core</artifactId>
 				<version>4.2.0.Final</version>
 			</dependency>
+			<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+			<dependency>
+			    <groupId>io.jsonwebtoken</groupId>
+			    <artifactId>jjwt</artifactId>
+			    <version>0.6.0</version>
+			</dependency>
 			
 		</dependencies> 
 	</dependencyManagement>
@@ -635,10 +641,10 @@
             <version>4.1.1.Final</version>
         </dependency>
         <dependency>
-		    <groupId>io.jsonwebtoken</groupId>
-		    <artifactId>jjwt</artifactId>
-		    <version>0.7.0</version>
-		</dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
 	</dependencies>
 
 	<profiles>

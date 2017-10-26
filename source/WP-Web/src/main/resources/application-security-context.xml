@@ -6,26 +6,31 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security.xsd">
 	
-	<http entry-point-ref="restAuthenticationEntryPoint">
-		<intercept-url pattern="/warranty/api/**" access="ROLE_USER" />
-	
-		<form-login authentication-success-handler-ref="mySuccessHandler"
-			authentication-failure-handler-ref="myFailureHandler" />
-		<logout />
+	<http use-expressions="true" create-session="stateless" entry-point-ref="restAuthenticationEntryPoint"
+	 authentication-manager-ref="authenticationManager">
+		
+		<intercept-url pattern="/warranty/api/**" />
+		<intercept-url pattern="/warranty/api/user/createUser" access="permitAll"/>
+		<intercept-url pattern="/warranty/api/user/getUsers" access="permitAll"/>
+		
+		<form-login authentication-success-handler-ref="mySuccessHandler"/>
+		<access-denied-handler ref="myAuthenticationAccessDeniedHandler"/>
+		<http-basic />
 	</http>
 	
 	<beans:bean id="mySuccessHandler" class="org.product.warranty.pro.services.handlers.MySavedRequestAwareAuthenticationSuccessHandler"/>
-   <beans:bean id="myFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler"/>
-	
+	<beans:bean id="myAuthenticationAccessDeniedHandler" class="org.product.warranty.pro.services.handlers.RestAuthenticationAccessDeniedHandler"></beans:bean>
 	<authentication-manager erase-credentials="false" alias="authenticationManager">
 		<authentication-provider user-service-ref="UserAuthService">
-			<!-- <password-encoder ref="encoder" /> -->
+			<password-encoder ref="encoder" />
 		</authentication-provider>
-		<authentication-provider user-service-ref="UserAuthService"/>
 	</authentication-manager>
 	
 	<beans:bean id="encoder"
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
 		<beans:constructor-arg name="strength" value="11" />
 	</beans:bean>
+	
+	<!-- Enable the annotations for defining the secure role -->
+    <global-method-security secured-annotations="enabled" />
 </beans:beans>

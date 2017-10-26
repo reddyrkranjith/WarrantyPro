@@ -31,8 +31,8 @@
 
 	<task:annotation-driven />
 
-	<!-- <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="java:comp/env/jdbc/wisp" />
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/jdbc/wp" />
 	</bean>
 
 	<bean id="sessionFactory"
@@ -57,7 +57,7 @@
 	<bean id="txManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
-	</bean> -->
+	</bean>
 
 	<!-- Now Configured for gmail Account has to create -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

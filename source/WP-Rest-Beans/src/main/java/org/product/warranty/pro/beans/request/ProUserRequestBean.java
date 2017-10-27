@@ -6,6 +6,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.product.warranty.pro.beans.custom.validations.ValidPassword;
 
 public class ProUserRequestBean implements Serializable{
 
@@ -25,7 +26,7 @@ public class ProUserRequestBean implements Serializable{
 	@NotBlank(message = "Please enter valid mobile number.")
 	private String mobile;
 	
-	@NotBlank
+	@ValidPassword(message = "Password validation failed.")
 	private String password;
 
 	public String getUsername() {

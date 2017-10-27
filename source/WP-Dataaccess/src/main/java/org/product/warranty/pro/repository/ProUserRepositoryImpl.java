@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.product.warranty.pro.entities.ProUser;
 import org.product.warranty.pro.repository.exception.WPDataAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,19 @@ public class ProUserRepositoryImpl implements ProUserRepository{
 			Session session = sessionFactory.getCurrentSession();
 			Criteria criteria= session.createCriteria(ProUser.class);
 			return criteria.list();
+		} catch (HibernateException e) {
+			throw new WPDataAccessException(e);
+		}
+	}
+
+	@Override
+	@Transactional
+	public ProUser getUserByEmail(String email) throws WPDataAccessException {
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Criteria criteria= session.createCriteria(ProUser.class);
+			criteria.add(Restrictions.eq("email", email));
+			return (ProUser) criteria.uniqueResult();
 		} catch (HibernateException e) {
 			throw new WPDataAccessException(e);
 		}

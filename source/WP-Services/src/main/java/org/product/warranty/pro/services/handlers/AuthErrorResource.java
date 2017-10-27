@@ -1,18 +1,19 @@
-package org.product.warranty.pro.web.restservices.errorhandler;
+package org.product.warranty.pro.services.handlers;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SuccessResource {
+public class AuthErrorResource {
 	
 private String status;
 	
 	private String message;
 	
-	public SuccessResource() {
+
+	public AuthErrorResource() {
 	}
 
-	public SuccessResource(String status, String message) {
+	public AuthErrorResource(String status, String message) {
 		this.status = status;
 		this.message = message;
 	}

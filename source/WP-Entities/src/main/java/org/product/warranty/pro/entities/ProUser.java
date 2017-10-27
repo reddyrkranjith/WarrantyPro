@@ -18,16 +18,16 @@ public class ProUser{
 	@Column(name = "user_id")
 	private Long id;
 	
-	@Column(name = "user_key", nullable = false, updatable = false, length = 100)
+	@Column(unique = true, name = "user_key", nullable = false, updatable = false, length = 100)
 	private String userkey;
 	
-	@Column(name = "user_name", nullable = false, updatable = false, length = 50)
+	@Column(unique = true, name = "user_name", nullable = false, updatable = false, length = 50)
 	private String username;
 	
-	@Column(name = "email", nullable = false, updatable = false, length = 100)
+	@Column(unique = true, name = "email", nullable = false, updatable = false, length = 100)
 	private String email;
 	
-	@Column(name = "mobile_number", nullable = false, updatable = true, length = 50)
+	@Column(unique = true, name = "mobile_number", nullable = false, updatable = true, length = 50)
 	private String mobile;
 	
 	@Column(name = "password", nullable = false, updatable = true, length = 100)

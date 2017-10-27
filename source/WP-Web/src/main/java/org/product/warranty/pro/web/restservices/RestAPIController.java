@@ -50,4 +50,16 @@ public class RestAPIController {
 		List<ProUserResponeBean> users = proUserServices.getAllUsers();
 		return users;
 	}
+	
+	@RequestMapping(value = {"/login"}, method = RequestMethod.GET)
+	public @ResponseBody Object login() throws WPServiceException {
+		
+		return "";
+	}
+	
+	@RequestMapping(value = {"/getAdmins"}, method = RequestMethod.GET)
+	public @ResponseBody Object getAdmins() throws WPServiceException {
+		List<ProUserResponeBean> users = proUserServices.getAllUsers();
+		return users;
+	}
 }

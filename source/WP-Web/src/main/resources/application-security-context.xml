@@ -6,17 +6,19 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security.xsd">
 	
-	<http entry-point-ref="restAuthenticationEntryPoint" use-expressions="true">
-		
-		<intercept-url pattern="/warranty/api/user/createUser" access="permitAll" />
-		<intercept-url pattern="/warranty/api/user/getUsers" access="permitAll" />
-		<intercept-url pattern="/warranty/api/user/**" access="hasRole('ROLE_USER')" />
-		
+	<http pattern="/warranty/api/user/createUser" security="none" />
+	<http pattern="/warranty/api/user/getUsers" security="none" />
+	<http pattern="/warranty/api/user/login" security="none" />
+	
+	<http pattern="/warranty/api/user/**" entry-point-ref="restAuthenticationEntryPoint" use-expressions="true">
+	
+		<custom-filter ref="authenticationTokenProcessingFilter" position="PRE_AUTH_FILTER" />
 		<http-basic />
 	</http>
 	
+	<beans:bean class="org.product.warranty.pro.services.filters.AuthenticationTokenProcessingFilter" id="authenticationTokenProcessingFilter"/>
 	<beans:bean id="mySuccessHandler" class="org.product.warranty.pro.services.handlers.MySavedRequestAwareAuthenticationSuccessHandler"/>
-   <beans:bean id="myFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler"/>
+    <beans:bean id="myFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler"/>
 	
 	<authentication-manager erase-credentials="false">
 		<authentication-provider user-service-ref="UserAuthService">

@@ -23,6 +23,8 @@ public class ProUserResponeBean implements Serializable{
 	private Date createdDate;
 	
 	private Date updatedDate;
+	
+	private String token;
 
 	public Long getId() {
 		return id;
@@ -78,5 +80,13 @@ public class ProUserResponeBean implements Serializable{
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 }

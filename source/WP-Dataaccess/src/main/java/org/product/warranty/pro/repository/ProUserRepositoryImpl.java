@@ -32,6 +32,19 @@ public class ProUserRepositoryImpl implements ProUserRepository{
 		}
 	}
 	
+	@Override
+	@Transactional
+	public ProUser getUserByUsernameOrEmail(String userInput) throws WPDataAccessException {
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Criteria criteria= session.createCriteria(ProUser.class);
+			criteria.add(Restrictions.eq("email", userInput));
+			return (ProUser) criteria.uniqueResult();
+		} catch (HibernateException e) {
+			throw new WPDataAccessException(e);
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional

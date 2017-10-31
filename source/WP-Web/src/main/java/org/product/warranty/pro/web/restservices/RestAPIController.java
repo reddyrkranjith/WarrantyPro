@@ -1,10 +1,15 @@
 package org.product.warranty.pro.web.restservices;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
+import org.product.warranty.pro.beans.request.ProUserLoginRequestBean;
 import org.product.warranty.pro.beans.request.ProUserRequestBean;
 import org.product.warranty.pro.beans.response.ProUserResponeBean;
 import org.product.warranty.pro.services.ProUserServices;
@@ -51,10 +56,19 @@ public class RestAPIController {
 		return users;
 	}
 	
-	@RequestMapping(value = {"/login"}, method = RequestMethod.GET)
-	public @ResponseBody Object login() throws WPServiceException {
-		
-		return "";
+	@RequestMapping(value = {"/login"}, method = RequestMethod.POST)
+	public @ResponseBody Object login(@RequestBody ProUserLoginRequestBean proUserLoginRequestBean, 
+			BindingResult bindingResult) throws WPServiceException {
+		String jwtToken = "";
+		if(bindingResult.hasErrors()) {
+			throw new InvalidRequestException("Invalid Request", bindingResult);
+		} else {
+			ProUserResponeBean user = proUserServices.loginWithUsernameOrEmail(proUserLoginRequestBean);
+			jwtToken = Jwts.builder().setSubject(user.getEmail()+user.getUserkey()).claim("roles", "ROLE_USER").setIssuedAt(new Date())
+		            .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
+			user.setToken(jwtToken);
+			return user;
+		}
 	}
 	
 	@RequestMapping(value = {"/getAdmins"}, method = RequestMethod.GET)

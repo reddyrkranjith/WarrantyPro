@@ -70,4 +70,17 @@ public class ProUserRepositoryImpl implements ProUserRepository{
 			throw new WPDataAccessException(e);
 		}
 	}
+
+	@Override
+	@Transactional
+	public void updateUserAuthToken(ProUser entity)
+			throws WPDataAccessException {
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			session.saveOrUpdate(entity);
+		} catch (HibernateException e) {
+			throw new WPDataAccessException(e);
+		}
+	}
+
 }

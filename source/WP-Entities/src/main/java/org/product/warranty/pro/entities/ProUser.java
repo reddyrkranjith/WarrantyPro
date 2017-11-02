@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity(name = "ProUser")
 @Table(name = "wp_users")
 public class ProUser{
@@ -32,6 +34,10 @@ public class ProUser{
 	
 	@Column(name = "password", nullable = false, updatable = true, length = 100)
 	private String password;
+	
+	@Column(name = "auth_token", nullable = true, updatable = true)
+	@Type(type = "text")
+	private String auth_token;
 	
 	@Column(name = "created_date", nullable = false, updatable = false)
 	private Date createdDate;
@@ -85,6 +91,14 @@ public class ProUser{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getAuth_token() {
+		return auth_token;
+	}
+
+	public void setAuth_token(String auth_token) {
+		this.auth_token = auth_token;
 	}
 
 	public Date getCreatedDate() {

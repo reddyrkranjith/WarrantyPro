@@ -16,4 +16,7 @@ public interface ProUserRepository {
 	public List<ProUser> getAllUsers() throws WPDataAccessException;
 
 	public ProUser getUserByEmail(String email) throws WPDataAccessException;
+
+	public void updateUserAuthToken(ProUser entity) throws WPDataAccessException;
+
 }

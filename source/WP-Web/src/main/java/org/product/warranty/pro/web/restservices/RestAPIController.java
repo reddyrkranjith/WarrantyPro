@@ -19,6 +19,8 @@ import org.product.warranty.pro.web.restservices.errorhandler.SuccessResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +34,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class RestAPIController {
 	
 	Logger LOG_R = Logger.getLogger(RestAPIController.class);
+	static final long ONE_MINUTE_IN_MILLIS=60000;//millisecs
 	
 	@Autowired
 	@Qualifier("ProUserServices")
@@ -64,15 +67,18 @@ public class RestAPIController {
 			throw new InvalidRequestException("Invalid Request", bindingResult);
 		} else {
 			ProUserResponeBean user = proUserServices.loginWithUsernameOrEmail(proUserLoginRequestBean);
-			jwtToken = Jwts.builder().setSubject(user.getEmail()+user.getUserkey()).claim("roles", "ROLE_USER").setIssuedAt(new Date())
+			jwtToken = Jwts.builder().setSubject(user.getEmail()).claim("roles", "ROLE_USER").setIssuedAt(new Date())
 		            .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
 			user.setToken(jwtToken);
+			proUserServices.updateUserAuthToken(user);
 			return user;
 		}
 	}
 	
 	@RequestMapping(value = {"/getAdmins"}, method = RequestMethod.GET)
 	public @ResponseBody Object getAdmins() throws WPServiceException {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("UserDetails : "+authentication.getName());
 		List<ProUserResponeBean> users = proUserServices.getAllUsers();
 		return users;
 	}

@@ -17,4 +17,6 @@ public interface ProUserServices {
 			ProUserLoginRequestBean proUserLoginRequestBean) throws WPServiceException;
 	
 	public List<ProUserResponeBean> getAllUsers() throws WPServiceException;
+
+	public void updateUserAuthToken(ProUserResponeBean user) throws WPServiceException;
 }

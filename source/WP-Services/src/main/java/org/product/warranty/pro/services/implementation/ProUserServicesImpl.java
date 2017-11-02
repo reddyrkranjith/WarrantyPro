@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("ProUserServices")
@@ -106,5 +107,20 @@ public class ProUserServicesImpl implements ProUserServices{
 		user.setCreatedDate(entity.getCreatedDate());
 		user.setUpdatedDate(entity.getUpdatedDate());
 		return user;
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = WPServiceException.class)
+	public void updateUserAuthToken(ProUserResponeBean user) throws WPServiceException {
+		try{
+			ProUser entity = proUserRepository.getUserByEmail(user.getEmail());
+			if(entity == null){
+				throw new WPServiceException("Invalid user", 500);
+			}
+			entity.setAuth_token(user.getToken());
+			proUserRepository.updateUserAuthToken(entity);
+		} catch (WPDataAccessException e) {
+			throw new WPServiceException(e.getMessage(), 500);
+		}
 	}
 }
